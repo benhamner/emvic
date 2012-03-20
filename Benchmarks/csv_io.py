@@ -2,6 +2,8 @@
 
 def read_data(file_name):
     f = open(file_name)
+    #ignore header
+    f.readline()
     samples = []
     target = []
     for line in f:
@@ -16,5 +18,8 @@ def write_delimited_file(file_path, data,header=None, delimiter=","):
     if header is not None:
         f_out.write(delimiter.join(header) + "\n")
     for line in data:
-        f_out.write(delimiter.join(line) + "\n")
+        if isinstance(line, str):
+            f_out.write(line + "\n")
+        else:
+            f_out.write(delimiter.join(line) + "\n")
     f_out.close()
